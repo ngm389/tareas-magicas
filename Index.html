@@ -1133,33 +1133,27 @@ function enterWithCode(code){
   // Load family data
   // ── SMART STARTUP ──────────────────────────────────
 (function(){
-  var fbUrl=getStoredFbUrl();
+  // Firebase URL hardcoded — no setup screen needed
+  var HARDCODED_URL='https://tareas-magicas-75cdb-default-rtdb.firebaseio.com';
+  localStorage.setItem(FB_URL_KEY, HARDCODED_URL);
+  var fbUrl=HARDCODED_URL;
   var storedCode=getStoredCode();
 
-  // Hide all screens first
+  // Hide all screens
   ['familyScreen','newFamilyScreen','joinFamilyScreen','modeScreen'].forEach(function(id){
     var e=g(id);if(e)e.style.display='none';
   });
-  g('firebaseSetup').style.display='none';
+  var fs=g('firebaseSetup');if(fs)fs.style.display='none';
 
-  if(!fbUrl){
-    // First time ever: show Firebase setup
-    showFirebaseSetup();
-    return;
-  }
-
-  // Firebase URL exists — init it
   var ok=initFirebase(fbUrl);
-  if(!ok){showFirebaseSetup();return;}
+  if(!ok){alert('Error conectando Firebase. Verifica tu conexion.');return;}
 
   if(storedCode){
-    // Returning user with saved code — go straight to who-are-you
     currentFamilyCode=storedCode;
     var ms=g('modeScreen');if(ms)ms.style.display='flex';
     var dc=g('displayFamilyCode');if(dc)dc.textContent=storedCode;
     cLoad();
   }else{
-    // Firebase configured but no family yet
     showFamilyScreen();
   }
 })();
@@ -2057,33 +2051,27 @@ function confetti(){
 
 // ── SMART STARTUP ──────────────────────────────────
 (function(){
-  var fbUrl=getStoredFbUrl();
+  // Firebase URL hardcoded — no setup screen needed
+  var HARDCODED_URL='https://tareas-magicas-75cdb-default-rtdb.firebaseio.com';
+  localStorage.setItem(FB_URL_KEY, HARDCODED_URL);
+  var fbUrl=HARDCODED_URL;
   var storedCode=getStoredCode();
 
-  // Hide all screens first
+  // Hide all screens
   ['familyScreen','newFamilyScreen','joinFamilyScreen','modeScreen'].forEach(function(id){
     var e=g(id);if(e)e.style.display='none';
   });
-  g('firebaseSetup').style.display='none';
+  var fs=g('firebaseSetup');if(fs)fs.style.display='none';
 
-  if(!fbUrl){
-    // First time ever: show Firebase setup
-    showFirebaseSetup();
-    return;
-  }
-
-  // Firebase URL exists — init it
   var ok=initFirebase(fbUrl);
-  if(!ok){showFirebaseSetup();return;}
+  if(!ok){alert('Error conectando Firebase. Verifica tu conexion.');return;}
 
   if(storedCode){
-    // Returning user with saved code — go straight to who-are-you
     currentFamilyCode=storedCode;
     var ms=g('modeScreen');if(ms)ms.style.display='flex';
     var dc=g('displayFamilyCode');if(dc)dc.textContent=storedCode;
     cLoad();
   }else{
-    // Firebase configured but no family yet
     showFamilyScreen();
   }
 })();
