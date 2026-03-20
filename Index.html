@@ -665,6 +665,143 @@ body::before{
 /* ── CONFETTI ───────────────────────────────────────────── */
 .cp{position:fixed;pointer-events:none;z-index:9998;animation:fall linear forwards;border-radius:50%}
 @keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+/* ═══════════════════════════════════════════════════════
+   DAILY MISSIONS SYSTEM
+═══════════════════════════════════════════════════════ */
+.missions-card{border-radius:24px;padding:20px 18px;margin-bottom:16px;position:relative;overflow:hidden;border:3px solid;background:linear-gradient(135deg,#FFF8E0,#FFE8D6,#FFD6F0);border-color:rgba(255,179,71,.6);box-shadow:0 8px 28px rgba(255,179,71,.2)}
+.missions-card::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:rgba(255,179,71,.1)}
+.missions-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.missions-title{font-family:'Fredoka One',cursive;font-size:1.2rem;color:#8B5A00;display:flex;align-items:center;gap:7px}
+.missions-meta{font-size:.75rem;color:var(--soft);font-weight:800}
+.mission-item{background:rgba(255,255,255,.8);border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;border:2px solid rgba(255,179,71,.2);transition:all .3s;cursor:pointer}
+.mission-item:hover{transform:translateX(3px);border-color:rgba(255,179,71,.5)}
+.mission-item.done{background:linear-gradient(135deg,rgba(107,203,119,.15),rgba(78,205,196,.1));border-color:rgba(107,203,119,.4);cursor:default}
+.mission-emoji{font-size:1.6rem;flex-shrink:0}
+.mission-info{flex:1}
+.mission-name{font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--text);margin-bottom:2px}
+.mission-reward{font-size:.72rem;color:var(--soft);font-weight:700}
+.mission-check{width:28px;height:28px;border-radius:50%;border:2.5px solid rgba(255,179,71,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;background:white;transition:all .3s}
+.mission-item.done .mission-check{background:linear-gradient(135deg,var(--green),var(--teal));border-color:transparent;box-shadow:0 2px 8px rgba(107,203,119,.4)}
+.missions-bonus{background:linear-gradient(135deg,rgba(255,209,102,.25),rgba(255,179,71,.15));border:2px solid rgba(255,209,102,.5);border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:10px;margin-top:10px}
+.missions-bonus-text{font-size:.82rem;font-weight:800;color:#7A4A00}
+.missions-all-done{text-align:center;padding:14px;animation:missionPulse 2s ease-in-out infinite}
+@keyframes missionPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+
+/* ═══════════════════════════════════════════════════════
+   STREAK SYSTEM
+═══════════════════════════════════════════════════════ */
+.streak-hero{border-radius:22px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;border:3px solid}
+.streak-hero-0{background:rgba(255,107,181,.04);border-color:rgba(255,107,181,.15);border-style:dashed}
+.streak-hero-active{background:linear-gradient(135deg,#FFF8E0,#FFE8D6);border-color:rgba(255,179,71,.5);box-shadow:0 4px 18px rgba(255,179,71,.2)}
+.streak-hero-hot{background:linear-gradient(135deg,#FFF0D6,#FFE0C0);border-color:rgba(255,120,0,.5);animation:streakGlow 2s ease-in-out infinite;box-shadow:0 4px 24px rgba(255,120,0,.25)}
+@keyframes streakGlow{0%,100%{box-shadow:0 4px 18px rgba(255,120,0,.2)}50%{box-shadow:0 8px 32px rgba(255,120,0,.4)}}
+.streak-flame{font-size:2.8rem;animation:flameFlicker 1.5s ease-in-out infinite alternate;flex-shrink:0}
+@keyframes flameFlicker{0%{transform:scale(1) rotate(-3deg)}100%{transform:scale(1.08) rotate(3deg)}}
+.streak-num{font-family:'Fredoka One',cursive;font-size:2.4rem;line-height:1;color:#B5780A}
+.streak-0 .streak-num{color:var(--softer)}
+.streak-unit{font-size:.72rem;color:var(--soft);font-weight:800}
+.streak-msg{font-size:.78rem;font-weight:700}
+.streak-heat-bar{display:flex;gap:3px;margin-top:8px}
+.streak-day{width:22px;height:8px;border-radius:999px;background:rgba(255,179,71,.2);transition:all .4s}
+.streak-day.done{background:linear-gradient(90deg,#FFB347,#FF8C00)}
+.streak-day.today{background:linear-gradient(90deg,#FF6B9D,#C77DFF);animation:streakGlow 1.5s ease-in-out infinite}
+
+/* ═══════════════════════════════════════════════════════
+   DAILY LOGIN REWARD
+═══════════════════════════════════════════════════════ */
+.daily-reward-overlay{position:fixed;inset:0;background:rgba(74,26,58,.6);backdrop-filter:blur(10px);z-index:7000;display:none;align-items:center;justify-content:center;padding:20px}
+.daily-reward-overlay.show{display:flex}
+.daily-reward-box{background:white;border:4px solid var(--yellow);border-radius:32px;padding:32px 28px;width:100%;max-width:360px;text-align:center;animation:popUp .5s cubic-bezier(.34,1.56,.64,1);box-shadow:0 20px 60px rgba(255,209,102,.4),0 0 60px rgba(255,107,181,.2)}
+.dr-emoji{font-size:4rem;display:block;margin-bottom:8px;animation:floatB 2s ease-in-out infinite}
+.dr-title{font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--gold);margin-bottom:4px}
+.dr-subtitle{color:var(--soft);font-size:.88rem;font-weight:700;margin-bottom:20px}
+.dr-cycle{display:flex;gap:6px;justify-content:center;margin-bottom:20px}
+.dr-day{width:36px;height:36px;border-radius:50%;border:2.5px solid rgba(255,209,102,.3);display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:rgba(255,209,102,.08);font-family:'Fredoka One',cursive;font-size:.7rem;color:var(--soft);flex-direction:column;gap:1px}
+.dr-day.claimed{background:linear-gradient(135deg,var(--yellow),var(--peach));border-color:transparent;color:white;box-shadow:0 3px 10px rgba(255,179,71,.4)}
+.dr-day.today{background:linear-gradient(135deg,var(--pink),var(--purple));border-color:transparent;color:white;box-shadow:0 3px 14px rgba(255,107,181,.5);animation:popIn .4s cubic-bezier(.34,1.56,.64,1);transform:scale(1.15)}
+.dr-reward-value{font-family:'Fredoka One',cursive;font-size:2.2rem;color:var(--dpink);margin-bottom:18px}
+.btn-claim{width:100%;padding:15px;background:linear-gradient(135deg,var(--yellow),var(--peach));color:white;border:none;border-radius:16px;font-family:'Fredoka One',cursive;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 18px rgba(255,179,71,.4);transition:all .25s}
+.btn-claim:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(255,179,71,.55)}
+
+/* ═══════════════════════════════════════════════════════
+   REWARD STORE
+═══════════════════════════════════════════════════════ */
+.store-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.store-balance{background:linear-gradient(135deg,rgba(255,209,102,.2),rgba(255,179,71,.15));border:2px solid rgba(255,209,102,.4);border-radius:14px;padding:8px 16px;font-family:'Fredoka One',cursive;font-size:1rem;color:#7A4A00}
+.store-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.store-item{background:white;border:2.5px solid rgba(255,107,181,.2);border-radius:20px;padding:14px 12px;text-align:center;transition:all .3s cubic-bezier(.34,1.56,.64,1);cursor:pointer;box-shadow:0 4px 12px rgba(255,107,181,.08);position:relative}
+.store-item:hover{transform:translateY(-4px);border-color:var(--pink);box-shadow:0 10px 28px rgba(255,107,181,.2)}
+.store-item.affordable{border-color:rgba(107,203,119,.4)}
+.store-item.affordable:hover{border-color:var(--green);box-shadow:0 10px 28px rgba(107,203,119,.2)}
+.store-item.cant-afford{opacity:.55;cursor:not-allowed}
+.store-item.cant-afford:hover{transform:none}
+.store-emoji{font-size:2.4rem;display:block;margin-bottom:6px}
+.store-name{font-family:'Fredoka One',cursive;font-size:.92rem;color:var(--text);margin-bottom:4px}
+.store-cost{display:inline-flex;align-items:center;gap:4px;background:rgba(255,209,102,.2);border:1.5px solid rgba(255,209,102,.4);border-radius:999px;padding:3px 10px;font-size:.76rem;font-weight:800;color:#7A4A00}
+.store-item.affordable .store-cost{background:rgba(107,203,119,.2);border-color:rgba(107,203,119,.4);color:#1A6A2A}
+.redeem-popup{position:fixed;inset:0;background:rgba(74,26,58,.55);backdrop-filter:blur(8px);z-index:6500;display:none;align-items:center;justify-content:center;padding:20px}
+.redeem-popup.show{display:flex}
+.redeem-box{background:white;border:3px solid var(--green);border-radius:28px;padding:28px 24px;width:100%;max-width:340px;text-align:center;animation:popUp .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 16px 50px rgba(107,203,119,.3)}
+.redeem-emoji{font-size:3.5rem;display:block;margin-bottom:8px;animation:floatB 2s ease-in-out infinite}
+.redeem-title{font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--green);margin-bottom:4px}
+.redeem-sub{color:var(--soft);font-size:.84rem;font-weight:700;margin-bottom:16px}
+.redeem-coins{font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--gold);margin-bottom:18px}
+.btn-redeem-confirm{width:100%;padding:14px;background:linear-gradient(135deg,var(--green),var(--teal));color:white;border:none;border-radius:14px;font-family:'Fredoka One',cursive;font-size:1rem;cursor:pointer;margin-bottom:8px;box-shadow:0 4px 14px rgba(107,203,119,.4)}
+.btn-redeem-cancel{background:none;border:none;color:var(--soft);font-family:'Fredoka One',cursive;font-size:.9rem;cursor:pointer;text-decoration:underline}
+
+/* ═══════════════════════════════════════════════════════
+   PARENT DASHBOARD
+═══════════════════════════════════════════════════════ */
+.dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.dash-card{background:white;border-radius:18px;padding:14px 16px;border:2px solid rgba(255,107,181,.15);box-shadow:0 4px 12px rgba(255,107,181,.08)}
+.dash-card-title{font-size:.72rem;font-weight:800;color:var(--soft);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.dash-card-val{font-family:'Fredoka One',cursive;font-size:2rem;line-height:1;color:var(--dpink)}
+.dash-card-sub{font-size:.7rem;color:var(--softer);font-weight:700;margin-top:2px}
+.dash-card-green .dash-card-val{color:#1A6A2A}
+.dash-card-gold .dash-card-val{color:#7A4A00}
+.dash-card-purple .dash-card-val{color:var(--dpurple)}
+.activity-bar{display:flex;gap:4px;align-items:flex-end;height:40px;margin-top:6px}
+.act-bar-day{flex:1;border-radius:4px 4px 0 0;background:linear-gradient(to top,var(--pink),var(--purple));min-height:4px;transition:height .6s ease}
+.act-bar-lbl{font-size:.6rem;color:var(--softer);text-align:center;margin-top:2px}
+.weekly-chart{margin-bottom:16px}
+.weekly-chart-title{font-family:'Fredoka One',cursive;font-size:1rem;color:var(--dpink);margin-bottom:10px}
+.pending-redeems{background:linear-gradient(135deg,rgba(107,203,119,.1),rgba(78,205,196,.07));border:2px solid rgba(107,203,119,.3);border-radius:18px;padding:14px 16px;margin-bottom:14px}
+.pending-redeem-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(107,203,119,.15)}
+.pending-redeem-item:last-child{border-bottom:none}
+.prd-emoji{font-size:1.5rem;flex-shrink:0}
+.prd-info{flex:1;font-size:.82rem;color:var(--text);font-weight:700}
+.prd-info span{display:block;font-size:.7rem;color:var(--soft);font-weight:600;margin-top:1px}
+.btn-approve{background:linear-gradient(135deg,var(--green),var(--teal));color:white;border:none;border-radius:10px;padding:6px 12px;font-family:'Fredoka One',cursive;font-size:.82rem;cursor:pointer}
+
+/* ═══════════════════════════════════════════════════════
+   NOTIFICATIONS BADGE
+═══════════════════════════════════════════════════════ */
+.notif-dot{position:absolute;top:-3px;right:-3px;width:14px;height:14px;border-radius:50%;background:var(--dpink);border:2.5px solid white;animation:notifPulse 2s ease-in-out infinite;display:none}
+.notif-dot.show{display:block}
+@keyframes notifPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.notif-panel{position:fixed;top:60px;right:16px;width:300px;max-width:92vw;background:white;border:2.5px solid rgba(255,107,181,.25);border-radius:20px;box-shadow:0 8px 32px rgba(255,107,181,.2);z-index:8000;display:none;overflow:hidden;animation:slideDown .3s ease}
+.notif-panel.show{display:block}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.notif-header{background:linear-gradient(135deg,var(--pink),var(--purple));padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.notif-header-title{font-family:'Fredoka One',cursive;font-size:1rem;color:white}
+.notif-close{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.1rem;cursor:pointer}
+.notif-item{padding:10px 14px;border-bottom:1px solid rgba(255,107,181,.08);display:flex;align-items:flex-start;gap:10px}
+.notif-item:last-child{border-bottom:none}
+.notif-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px}
+.notif-text{font-size:.82rem;color:var(--text);font-weight:600;line-height:1.4}
+.notif-time{font-size:.68rem;color:var(--softer);font-weight:700;margin-top:2px}
+.notif-empty{padding:24px;text-align:center;color:var(--softer);font-size:.88rem;font-weight:700}
+
+/* ═══════════════════════════════════════════════════════
+   COINS DISPLAY (animated)
+═══════════════════════════════════════════════════════ */
+.coins-float{position:fixed;pointer-events:none;z-index:9997;font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--gold);animation:coinsFloat .9s ease-out forwards;text-shadow:0 2px 6px rgba(255,179,71,.5)}
+@keyframes coinsFloat{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(1.3)}}
+.xp-float{position:fixed;pointer-events:none;z-index:9997;font-family:'Fredoka One',cursive;font-size:1rem;color:var(--dpurple);animation:coinsFloat .9s ease-out forwards}
+.tab-missions{background:linear-gradient(135deg,#FFF8E0,#FFE8D6);border-color:rgba(255,179,71,.6);color:#8B5A00;transform:translateY(-2px)}
+.tab-store{background:linear-gradient(135deg,#D6FFE8,#D6F5FF);border-color:var(--green);color:#1A6A2A;transform:translateY(-2px)}
+.tab-dash{background:linear-gradient(135deg,#F0D6FF,#FFD6F0);border-color:var(--purple);color:var(--dpurple);transform:translateY(-2px)}
 </style>
 </head>
 <body>
@@ -837,18 +974,22 @@ body::before{
       </div>
       <div style="display:flex;gap:8px;align-items:center">
         <div class="mode-badge" id="mBadge"></div>
+        <button style="position:relative;background:white;border:2px solid rgba(255,107,181,.3);border-radius:14px;padding:8px 12px;cursor:pointer;font-size:1.1rem;box-shadow:0 2px 8px rgba(255,107,181,.1)" onclick="toggleNotifications()" id="notifBtn">🔔<span class="notif-dot" id="notifBadge"></span></button>
         <button class="btn-exit" onclick="exitMenu()">Salir</button>
       </div>
     </div>
     <!-- KID VIEW -->
     <div id="kidView">
       <div class="tabs" id="kTabs">
+        <div class="tab" id="ktM" onclick="kidTab('missions',this)" style="position:relative">🎯 Misiones<span class="notif-dot" id="missionsDot"></span></div>
         <div class="tab" id="ktT" onclick="kidTab('tasks',this)">📋 Tareas</div>
+        <div class="tab" id="ktS" onclick="kidTab('store',this)">🛒 Tienda</div>
         <div class="tab" id="ktV" onclick="kidTab('vote',this)">🗺️ Votar</div>
-        <div class="tab" id="ktR" onclick="kidTab('reto',this)">🎯 Reto</div>
         <div class="tab" id="ktA" onclick="kidTab('album',this)">📸 Album</div>
       </div>
+      <div id="kMissions" style="display:none"></div>
       <div id="kTasks"></div>
+      <div id="kStore" style="display:none"></div>
       <div id="kVote" style="display:none"></div>
       <div id="kReto" style="display:none"></div>
       <div id="kAlbum" style="display:none"></div>
@@ -856,18 +997,28 @@ body::before{
     <!-- DAD VIEW -->
     <div id="dadView" style="display:none">
       <div class="tabs" id="dTabs">
+        <div class="tab" id="dtD" onclick="dadTab('dash',this)">📊 Panel</div>
         <div class="tab" id="dtS" onclick="dadTab('sofia',this)">Sofia</div>
         <div class="tab" id="dtV" onclick="dadTab('valentina',this)">Valentina</div>
         <div class="tab" id="dtVt" onclick="dadTab('vote',this)">Votos</div>
         <div class="tab" id="dtRt" onclick="dadTab('reto',this)">Reto</div>
         <div class="tab" id="dtC" onclick="dadTab('config',this)" style="flex:.5">Config</div>
       </div>
+      <div id="dDash" style="display:none"></div>
       <div id="dSofia"></div>
       <div id="dValentina" style="display:none"></div>
       <div id="dVote" style="display:none"></div>
       <div id="dReto" style="display:none"></div>
       <div id="dConfig" style="display:none">
 
+        <div id="storeEditorContainer"></div>
+        <div class="adm-title">💌 Mensaje Sorpresa del Dia</div>
+        <p style="font-size:.8rem;color:var(--soft);margin-bottom:10px">Las ninas lo ven cada vez que abren sus tareas. Cambialo cuando quieras sorprenderlas.</p>
+        <div class="adm-card">
+          <div class="adm-field"><label>Sofia</label><input class="adm-input" id="surprise-sofia" placeholder="Escribe algo lindo para Sofia hoy..."></div>
+          <div class="adm-field"><label>Valentina</label><input class="adm-input" id="surprise-valentina" placeholder="Escribe algo lindo para Valentina hoy..."></div>
+          <div style="padding:10px 16px"><button class="save-btn" onclick="saveSurprises()">Enviar Mensaje 💌</button></div>
+        </div>
         <div class="adm-title">🔐 Cambiar PIN</div>
         <div class="adm-card">
           <div class="adm-field"><label>Actual</label><input class="adm-input" id="pCur" type="password" maxlength="4" placeholder="Actual"></div>
@@ -910,6 +1061,40 @@ body::before{
 </div>
 <div class="toast" id="toast"></div>
 
+<!-- NOTIFICATIONS PANEL -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-header">
+    <span class="notif-header-title">Notificaciones</span>
+    <button class="notif-close" onclick="closeNotifications()">✕</button>
+  </div>
+  <div id="notifList"><div class="notif-empty">Sin notificaciones nuevas</div></div>
+</div>
+
+<!-- DAILY REWARD POPUP -->
+<div class="daily-reward-overlay" id="dailyRewardOverlay">
+  <div class="daily-reward-box">
+    <span class="dr-emoji" id="drEmoji">🎁</span>
+    <div class="dr-title">Recompensa Diaria!</div>
+    <div class="dr-subtitle" id="drSubtitle">Dia 1 de 7</div>
+    <div class="dr-cycle" id="drCycle"></div>
+    <div class="dr-reward-value" id="drValue">+5 monedas</div>
+    <button class="btn-claim" onclick="claimDailyReward()">Reclamar!</button>
+  </div>
+</div>
+
+<!-- REDEEM CONFIRMATION POPUP -->
+<div class="redeem-popup" id="redeemPopup">
+  <div class="redeem-box">
+    <span class="redeem-emoji" id="redeemEmoji">🎁</span>
+    <div class="redeem-title" id="redeemName">Premio</div>
+    <div class="redeem-sub">Confirma tu canje</div>
+    <div class="redeem-coins" id="redeemCost">-10 monedas</div>
+    <button class="btn-redeem-confirm" onclick="confirmRedeem()">Si, canjear!</button>
+    <br>
+    <button class="btn-redeem-cancel" onclick="closeRedeem()">Cancelar</button>
+  </div>
+</div>
+
 <script>
 var DIFF={easy:{label:'Facil',pts:5},medium:{label:'Medio',pts:10},hard:{label:'Dificil',pts:20}};
 var ACH_COLORS=['gold','pink','green','purple','blue'];
@@ -950,6 +1135,15 @@ var DEF_CFG={pin:'1234',
     sofia:['Increible! Eres una princesa guerrera 👸✨','Con cada tarea eres mas poderosa! 💪','Las princesas cuidan su reino! 👑'],
     valentina:['Lo lograste exploradora! 🦄','Tu puedes con todo! 🌈⭐','Que magica eres! ✨']
   },
+  surprises:{sofia:'',valentina:''},
+  store:[
+    {id:'st1',emoji:'📱',name:'30 min pantalla',cost:20,type:'screen'},
+    {id:'st2',emoji:'🍭',name:'Un dulce',cost:10,type:'treat'},
+    {id:'st3',emoji:'🎮',name:'1 hora de juego',cost:25,type:'screen'},
+    {id:'st4',emoji:'🍕',name:'Pizza para cenar',cost:50,type:'food'},
+    {id:'st5',emoji:'🎨',name:'Dia de arte',cost:30,type:'activity'},
+    {id:'st6',emoji:'🛒',name:'Compra especial',cost:100,type:'special'}
+  ],
   niveles:[
     {n:1,name:'Aprendiz',   emoji:'🌱',xpNeeded:0,   css:'nivel-1'},
     {n:2,name:'Ayudante',   emoji:'⭐',xpNeeded:50,  css:'nivel-2'},
@@ -963,11 +1157,19 @@ var DEF_CFG={pin:'1234',
 // We build defaults on first load
 
 var DEF_ST={
-  sofia:{done:[],totalDone:0,totalEarned:0,points:0,totalPoints:0,choreStats:{},nivel:1,xp:0,totalXp:0,pendingBonus:0},
-  valentina:{done:[],totalDone:0,totalEarned:0,points:0,totalPoints:0,choreStats:{},nivel:1,xp:0,totalXp:0,pendingBonus:0},
+  sofia:{done:[],totalDone:0,totalEarned:0,points:0,totalPoints:0,choreStats:{},nivel:1,xp:0,totalXp:0,pendingBonus:0,perfectWeeks:0,totalWeeks:0},
+  valentina:{done:[],totalDone:0,totalEarned:0,points:0,totalPoints:0,choreStats:{},nivel:1,xp:0,totalXp:0,pendingBonus:0,perfectWeeks:0,totalWeeks:0},
   proposals:[],
   claimedAch:{},
-  reto:null  // {id, emoji, title, desc, reward, bonusMoney, deadline, targetSofia, targetValentina, active}
+  reto:null,
+  // Gamification systems
+  missions:{sofia:{date:'',tasks:[],completed:[]},valentina:{date:'',tasks:[],completed:[]}},
+  streak:{sofia:{count:0,lastDate:'',history:[]},valentina:{count:0,lastDate:'',history:[]}},
+  coins:{sofia:0,valentina:0},
+  dailyLogin:{sofia:{lastDate:'',day:0,history:[]},valentina:{lastDate:'',day:0,history:[]}},
+  redeemRequests:[],
+  notifications:[],
+  // notifications: [{id, girl, type, msg, ts, read}]
 };
 
 var cfg=JSON.parse(JSON.stringify(DEF_CFG));
@@ -1203,6 +1405,14 @@ async function cLoad(){
     if(!st.claimedAch)st.claimedAch={};
     if(st.reto===undefined)st.reto=null;
     if(!cfg.msgs)cfg.msgs=JSON.parse(JSON.stringify(DEF_CFG.msgs));
+    if(!cfg.surprises)cfg.surprises={sofia:'',valentina:''};
+    if(!cfg.store)cfg.store=JSON.parse(JSON.stringify(DEF_CFG.store));
+    if(!st.missions)st.missions={sofia:{date:'',tasks:[],completed:[]},valentina:{date:'',tasks:[],completed:[]}};
+    if(!st.streak)st.streak={sofia:{count:0,lastDate:'',history:[]},valentina:{count:0,lastDate:'',history:[]}};
+    if(!st.coins)st.coins={sofia:0,valentina:0};
+    if(!st.dailyLogin)st.dailyLogin={sofia:{lastDate:'',day:0,history:[]},valentina:{lastDate:'',day:0,history:[]}};
+    if(!st.redeemRequests)st.redeemRequests=[];
+    if(!st.notifications)st.notifications=[];
     if(!cfg.niveles)cfg.niveles=JSON.parse(JSON.stringify(DEF_CFG.niveles));
     ['sofia','valentina'].forEach(function(g2){
       if(!st[g2].points)st[g2].points=0;
@@ -1211,6 +1421,8 @@ async function cLoad(){
       if(!st[g2].xp)st[g2].xp=0;
       if(!st[g2].totalXp)st[g2].totalXp=0;
       if(!st[g2].pendingBonus)st[g2].pendingBonus=0;
+      if(!st[g2].perfectWeeks)st[g2].perfectWeeks=0;
+      if(!st[g2].totalWeeks)st[g2].totalWeeks=0;
     });
     ensureAchievements();
     setSync('Sincronizado ✓');
@@ -1243,13 +1455,22 @@ async function cLoad(){
 function setSync(t){var e=g('syncTxt');if(e)e.textContent=t;}
 
 // ═══ ENTRY ════════════════════════════════════════════════
-function enterDad(){pinBuf='';updDots();g('pinErr').textContent='';g('pinModal').classList.add('open');}
-function enterKid(girl){mode=girl;showApp();kidTab('tasks',g('ktT'));renderKT();}
+function enterDad(){pinBuf='';updDots();g('pinErr').textContent='';g('pinModal').classList.add('open');checkAndNormalize();}
+function enterKid(girl){
+  mode=girl;showApp();
+  checkAndNormalize();
+  checkDailyLogin(girl);
+  checkAndGenerateMissions(girl);
+  updateStreakDisplay(girl);
+  updateNotifBadge();
+  kidTab('missions',g('ktM'));
+  renderKT();
+}
 function cancelPin(){g('pinModal').classList.remove('open');pinBuf='';}
 function pp(d){
   if(pinBuf.length>=4)return;pinBuf+=d;updDots();
   if(pinBuf.length===4){setTimeout(function(){
-    if(pinBuf===cfg.pin){g('pinModal').classList.remove('open');mode='dad';showApp();renderDad();}
+    if(pinBuf===cfg.pin){g('pinModal').classList.remove('open');mode='dad';showApp();renderDad();setTimeout(function(){dadTab('dash',g('dtD'));},100);}
     else{g('pinErr').textContent='PIN incorrecto';pinBuf='';updDots();}
   },200);}
 }
@@ -1265,15 +1486,17 @@ function exitMenu(){g('modeScreen').style.display='flex';g('mainApp').classList.
 
 // ═══ KID TAB ══════════════════════════════════════════════
 function kidTab(sec,btn){
-  ['kTasks','kVote','kReto','kAlbum'].forEach(function(id){var e=g(id);if(e)e.style.display='none';});
-  var show={'tasks':'kTasks','vote':'kVote','reto':'kReto','album':'kAlbum'};
+  ['kMissions','kTasks','kStore','kVote','kReto','kAlbum'].forEach(function(id){var e=g(id);if(e)e.style.display='none';});
+  var show={missions:'kMissions',tasks:'kTasks',store:'kStore',vote:'kVote',reto:'kReto',album:'kAlbum'};
   if(g(show[sec]))g(show[sec]).style.display='block';
-  document.querySelectorAll('#kTabs .tab').forEach(function(b){b.classList.remove('tab-sofia','tab-valentina','tab-vote','tab-reto','tab-album');});
-  var cls={'tasks':'tab-'+mode,'vote':'tab-vote','reto':'tab-reto','album':'tab-album'};
+  document.querySelectorAll('#kTabs .tab').forEach(function(b){b.classList.remove('tab-sofia','tab-valentina','tab-vote','tab-reto','tab-album','tab-missions','tab-store');});
+  var cls={missions:'tab-missions',tasks:'tab-'+mode,store:'tab-store',vote:'tab-vote',reto:'tab-reto',album:'tab-album'};
   btn.classList.add(cls[sec]||'tab-'+mode);
   if(sec==='vote'){renderKV();startCountdownTick();}
   if(sec==='reto')renderReto();
   if(sec==='album')renderAlbum();
+  if(sec==='missions')renderMissions();
+  if(sec==='store')renderStore();
 }
 
 // ═══ ACHIEVEMENT HELPERS ══════════════════════════════════
@@ -1416,6 +1639,14 @@ function renderKT(){
       +'<div class="prog-top"><span>Progreso esta semana ✨</span><span>'+done+'/'+total+' tareas</span></div>'
       +'<div class="prog-bar"><div class="prog-fill pf-'+girl+'" style="width:'+pct+'%"></div></div>'
     +'</div>'
+    // Perfect week streak
+    +(function(){var pw=gs.perfectWeeks||0;var sm=pw>=5?'Leyenda imparable! 🌟':pw>=3?'Eres increible! 💪':pw>0?'Vas muy bien! 🔥':'Completa TODAS las tareas para empezar tu racha';return '<div style="border-radius:18px;padding:12px 16px;margin-bottom:14px;background:'+(pw>0?'linear-gradient(135deg,#FFF8E0,#FFE8D6);border:2.5px solid rgba(255,179,71,.5);box-shadow:0 4px 16px rgba(255,179,71,.2)':'rgba(255,107,181,.04);border:2px dashed rgba(255,107,181,.15)')+';display:flex;align-items:center;gap:12px"><span style="font-size:2rem">'+(pw>0?'🔥':'💤')+'</span><div><div style="font-family:Fredoka One,cursive;font-size:1.6rem;color:'+(pw>0?'#B5780A':'var(--softer)')+'">'+pw+'</div><div style="font-size:.7rem;color:var(--soft);font-weight:800">Semanas Perfectas Seguidas</div><div style="font-size:.68rem;color:'+(pw>0?'#7A4A00':'var(--softer)')+';font-weight:700">'+sm+'</div></div></div>';})()
+    // Historia completa
+    +'<div style="background:linear-gradient(135deg,#F8F0FF,#FFF0F8);border:2.5px solid rgba(199,125,255,.2);border-radius:18px;padding:14px 16px;margin-bottom:14px"><div style="font-family:Fredoka One,cursive;font-size:.9rem;color:var(--dpurple);margin-bottom:8px">📊 Mi Historia Completa</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px"><div style="background:white;border-radius:12px;padding:8px 6px;text-align:center"><div style="font-family:Fredoka One,cursive;font-size:1.4rem;color:var(--dpurple)">'+(gs.totalDone||0)+'</div><div style="font-size:.6rem;color:var(--soft);font-weight:800">tareas totales</div></div><div style="background:white;border-radius:12px;padding:8px 6px;text-align:center"><div style="font-family:Fredoka One,cursive;font-size:1.4rem;color:var(--gold)">$'+(gs.totalEarned||0).toFixed(0)+'</div><div style="font-size:.6rem;color:var(--soft);font-weight:800">total ganado</div></div><div style="background:white;border-radius:12px;padding:8px 6px;text-align:center"><div style="font-family:Fredoka One,cursive;font-size:1.4rem;color:var(--dpink)">'+(gs.perfectWeeks||0)+'</div><div style="font-size:.6rem;color:var(--soft);font-weight:800">sem. perfectas</div></div></div></div>'
+    // Sisters comparison
+    +(function(){var maxD=Math.max(st.sofia.done.length,st.valentina.done.length);var h='<div style="background:white;border:2.5px solid rgba(255,107,181,.2);border-radius:18px;padding:14px 16px;margin-bottom:14px;box-shadow:0 4px 14px rgba(255,107,181,.08)"><div style="font-family:Fredoka One,cursive;font-size:.9rem;color:var(--dpink);margin-bottom:8px">👯 Como vamos las dos</div><div style="display:flex;gap:8px">';['sofia','valentina'].forEach(function(grl){var gc2=cfg[grl];var gs2=st[grl];var d2=gs2.done.length;var isMe=grl===girl;var lead=d2>0&&d2>=maxD;h+='<div style="flex:1;border-radius:14px;padding:10px 8px;text-align:center;background:'+(grl==='sofia'?'linear-gradient(135deg,#FFE0EF,#FFF0F8);border:2px solid rgba(255,107,181,.3)':'linear-gradient(135deg,#D6FFE8,#F0FBFF);border:2px solid rgba(107,203,119,.3)')+'"><div style="font-size:1.6rem">'+gc2.avatar+'</div><div style="font-family:Fredoka One,cursive;font-size:.8rem;color:'+(grl==='sofia'?'var(--dpink)':'#1A6A2A')+'">'+gc2.name+(isMe?' ✨':'')+'</div><div style="font-size:.67rem;color:var(--soft);font-weight:700;margin-top:3px">'+d2+'/'+gc2.chores.length+' tareas'+(lead&&d2>0?' 👑':'')+'</div><div style="font-size:.67rem;color:var(--soft);font-weight:700">⭐'+(gs2.points||0)+'</div><div style="font-size:.67rem;color:var(--soft);font-weight:700">🔥'+(gs2.perfectWeeks||0)+'</div></div>';});h+='</div></div>';return h;})()
+    // Surprise message from dad
+    +(cfg.surprises&&cfg.surprises[girl]?'<div style="border-radius:16px;padding:12px 14px;margin-bottom:14px;background:linear-gradient(135deg,#FFF0F8,#F8F0FF);border:2.5px solid rgba(255,107,181,.35);box-shadow:0 4px 14px rgba(255,107,181,.15)"><div style="font-size:.68rem;color:#D4A0BC;font-weight:800;margin-bottom:3px">MENSAJE DE PAPA 💌</div><div style="font-family:Fredoka One,cursive;font-size:.98rem;color:var(--dpink)">'+cfg.surprises[girl]+'</div></div>':'')
     // Chore cards
     +'<div class="chores-grid">'+chorHtml+'</div>'
     // Stats summary (moved UP, before wall)
@@ -1507,6 +1738,15 @@ async function kComplete(choreId){
   st[mode].xp=(st[mode].xp||0)+xpGain;
   st[mode].totalXp=(st[mode].totalXp||0)+xpGain;
   checkNivelUp(mode, oldXp, st[mode].totalXp);
+  // Award coins
+  var coinsGain=cPts(chore);
+  if(!st.coins)st.coins={sofia:0,valentina:0};
+  st.coins[mode]=(st.coins[mode]||0)+coinsGain;
+  showFloatingReward(coinsGain, xpGain);
+  // Update missions
+  updateMissionProgress(mode, choreId);
+  // Update streak
+  updateStreak(mode);
   // Update chore stats
   var stats=getChoreStats(mode,choreId);
   stats.times++;
@@ -1524,6 +1764,9 @@ async function kComplete(choreId){
   if(st[mode].done.length===cfg[mode].chores.length){
     setTimeout(function(){toast('SEMANA PERFECTA! Mereces tu paga completa! 🎉');},2000);
   }
+  // Refresh missions if that tab is visible
+  if(g('kMissions')&&g('kMissions').style.display!=='none')renderMissions();
+  updateNotifBadge();
 }
 
 // ═══ KID VOTE ═════════════════════════════════════════════
@@ -1718,8 +1961,8 @@ async function submitProp(){
 
 // ═══ DAD VIEW ═════════════════════════════════════════════
 function dadTab(sec,btn){
-  ['dSofia','dValentina','dVote','dReto','dConfig'].forEach(function(id){var e=g(id);if(e)e.style.display='none';});
-  var m={'sofia':'dSofia','valentina':'dValentina','vote':'dVote','reto':'dReto','config':'dConfig'};
+  ['dDash','dSofia','dValentina','dVote','dReto','dConfig'].forEach(function(id){var e=g(id);if(e)e.style.display='none';});
+  var m={'dash':'dDash','sofia':'dSofia','valentina':'dValentina','vote':'dVote','reto':'dReto','config':'dConfig'};
   if(g(m[sec]))g(m[sec]).style.display='block';
   document.querySelectorAll('#dTabs .tab').forEach(function(b){b.classList.remove('tab-sofia','tab-valentina','tab-vote','tab-reto','tab-cfg');});
   var ac={'sofia':'tab-sofia','valentina':'tab-valentina','vote':'tab-vote','reto':'tab-reto','config':'tab-cfg'};
@@ -1728,11 +1971,42 @@ function dadTab(sec,btn){
   if(sec==='vote'){renderDV();startCountdownTick();}
   if(sec==='reto')renderDadReto();
   if(sec==='config')renderDadConfig();
+  if(sec==='dash')setTimeout(renderDashboard,100);
 }
 
 function renderDad(){renderDG('sofia');renderDG('valentina');}
+// renderDadConfig defined fully below — this stub is replaced
+async function saveSurprises(){if(!cfg.surprises)cfg.surprises={sofia:'',valentina:''};var ss=document.getElementById('surprise-sofia');var sv=document.getElementById('surprise-valentina');if(ss)cfg.surprises.sofia=ss.value.trim();if(sv)cfg.surprises.valentina=sv.value.trim();await cSave();toast('Mensaje enviado! Las ninas lo veran al abrir la app 💌');confetti();}
 
 function renderDadConfig(){
+  checkAndNormalize();
+  // Store editor
+  var sc=document.getElementById('storeEditorContainer');
+  if(sc)sc.innerHTML=renderStoreEditor();
+  // Surprises
+  var sp=cfg.surprises||{sofia:'',valentina:''};
+  var ss=document.getElementById('surprise-sofia');var sv=document.getElementById('surprise-valentina');
+  if(ss)ss.value=sp.sofia||'';if(sv)sv.value=sp.valentina||'';
+  // Niveles (kept from previous version)
+  var msgs=cfg.msgs||DEF_CFG.msgs;
+  var mS=g('msgs-sofia');var mV=g('msgs-valentina');
+  if(mS)mS.value=(msgs.sofia||[]).join(' | ');
+  if(mV)mV.value=(msgs.valentina||[]).join(' | ');
+  var nv=cfg.niveles||DEF_CFG.niveles;
+  var ne=g('niveles-editor');
+  if(!ne)return;
+  ne.innerHTML='<div style="display:grid;grid-template-columns:46px 1fr 1fr 70px;gap:6px;padding:8px 16px;background:var(--bg2);font-size:.68rem;font-weight:800;color:var(--soft)">'
+    +'<span>Emoji</span><span>Nombre</span><span>Titulo</span><span>XP min</span></div>'
+    +nv.map(function(niv,i){
+      return '<div style="display:grid;grid-template-columns:46px 1fr 1fr 70px;gap:6px;align-items:center;padding:8px 16px;border-bottom:1px solid rgba(255,107,181,.08)">'
+        +'<input class="adm-input adm-emoji" value="'+niv.emoji+'" id="nv-em-'+i+'">'
+        +'<input class="adm-input" value="'+niv.name+'" id="nv-nm-'+i+'" placeholder="Nombre nivel">'
+        +'<input class="adm-input" value="'+(niv.css||'nivel-'+(i+1))+'" id="nv-css-'+i+'" style="font-size:.76rem;color:var(--soft)">'
+        +'<input class="adm-input adm-sm" type="number" min="0" value="'+niv.xpNeeded+'" id="nv-xp-'+i+'">'
+        +'</div>';
+    }).join('');
+}
+function _renderDadConfig_stub(){
   // Messages
   var msgs=cfg.msgs||DEF_CFG.msgs;
   var mS=g('msgs-sofia');
@@ -2016,6 +2290,9 @@ async function payday(girl){
       });
     }
   });
+  var isPerfect=st[girl].done.length>=cfg[girl].chores.length&&cfg[girl].chores.length>0;
+  if(isPerfect)st[girl].perfectWeeks=(st[girl].perfectWeeks||0)+1;else st[girl].perfectWeeks=0;
+  st[girl].totalWeeks=(st[girl].totalWeeks||0)+1;
   var totalPayout=earned+bonusTotal+timesBonus;
   st[girl].totalEarned=(st[girl].totalEarned||0)+totalPayout;
   st[girl].done=[];
@@ -2023,7 +2300,7 @@ async function payday(girl){
   var msg='$'+earned.toFixed(2);
   var allBonus=bonusTotal+timesBonus;
   if(allBonus>0)msg+=' + $'+allBonus.toFixed(2)+' bonus de logros = $'+totalPayout.toFixed(2)+' total!';
-  toast(msg+' pagados a '+cfg[girl].name+'! 💰');
+  toast(msg+' pagados a '+cfg[girl].name+'!'+(isPerfect?' 🌟 Semana Perfecta!':''));
 }
 async function changePin(){
   var cur=g('pCur').value,nw=g('pNew').value,con=g('pCon').value;
@@ -2047,6 +2324,556 @@ function confetti(){
     e.style.cssText='left:'+Math.random()*100+'vw;top:-10px;background:'+cols[Math.floor(Math.random()*cols.length)]+';animation-duration:'+(1.2+Math.random()*.8)+'s;animation-delay:'+Math.random()*.4+'s;width:'+s+'px;height:'+s+'px;border-radius:'+(Math.random()>.5?'50%':'3px');
     document.body.appendChild(e);setTimeout(function(){e.remove();},2600);
   }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// UTILITY HELPERS
+// ═══════════════════════════════════════════════════════════════
+function todayStr(){return new Date().toISOString().split('T')[0];}
+function yesterdayStr(){var d=new Date();d.setDate(d.getDate()-1);return d.toISOString().split('T')[0];}
+function checkAndNormalize(){
+  if(!st.missions)st.missions={sofia:{date:'',tasks:[],completed:[]},valentina:{date:'',tasks:[],completed:[]}};
+  if(!st.streak)st.streak={sofia:{count:0,lastDate:'',history:[]},valentina:{count:0,lastDate:'',history:[]}};
+  if(!st.coins)st.coins={sofia:0,valentina:0};
+  if(!st.dailyLogin)st.dailyLogin={sofia:{lastDate:'',day:0,history:[]},valentina:{lastDate:'',day:0,history:[]}};
+  if(!st.redeemRequests)st.redeemRequests=[];
+  if(!st.notifications)st.notifications=[];
+  if(!cfg.store)cfg.store=JSON.parse(JSON.stringify(DEF_CFG.store));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DAILY LOGIN REWARD SYSTEM
+// 7-day cycle with increasing rewards
+// ═══════════════════════════════════════════════════════════════
+var DAILY_REWARDS=[
+  {day:1,emoji:'🌸',coins:5,xp:10,label:'Dia 1'},
+  {day:2,emoji:'⭐',coins:8,xp:15,label:'Dia 2'},
+  {day:3,emoji:'🌈',coins:10,xp:20,label:'Dia 3'},
+  {day:4,emoji:'🦋',coins:12,xp:25,label:'Dia 4'},
+  {day:5,emoji:'💎',coins:15,xp:30,label:'Dia 5'},
+  {day:6,emoji:'🏆',coins:20,xp:40,label:'Dia 6'},
+  {day:7,emoji:'👑',coins:30,xp:60,label:'Dia 7 ESPECIAL!'}
+];
+var pendingDailyGirl=null;
+
+function checkDailyLogin(girl){
+  checkAndNormalize();
+  var dl=st.dailyLogin[girl];
+  var today=todayStr();
+  if(dl.lastDate===today)return; // already claimed today
+  pendingDailyGirl=girl;
+  // Determine current day in cycle (reset if >1 day gap)
+  var yesterday=yesterdayStr();
+  var nextDay=dl.lastDate===yesterday?(dl.day%7)+1:1;
+  var reward=DAILY_REWARDS[nextDay-1];
+  // Build popup
+  g('drEmoji').textContent=reward.emoji;
+  g('drSubtitle').textContent='Dia '+nextDay+' de 7';
+  g('drValue').textContent='+'+reward.coins+' monedas & +'+reward.xp+' XP';
+  // Build 7-day cycle display
+  var cycleEl=g('drCycle');
+  cycleEl.innerHTML=DAILY_REWARDS.map(function(r,i){
+    var dayNum=i+1;
+    var cls=dayNum<nextDay?'claimed':dayNum===nextDay?'today':'';
+    return '<div class="dr-day '+cls+'"><span>'+(dayNum<nextDay?'✅':dayNum===nextDay?reward.emoji:'⬜')+'</span><span>D'+dayNum+'</span></div>';
+  }).join('');
+  g('dailyRewardOverlay').classList.add('show');
+}
+
+async function claimDailyReward(){
+  if(!pendingDailyGirl)return;
+  var girl=pendingDailyGirl;
+  var dl=st.dailyLogin[girl];
+  var today=todayStr();
+  var yesterday=yesterdayStr();
+  var nextDay=dl.lastDate===yesterday?(dl.day%7)+1:1;
+  var reward=DAILY_REWARDS[nextDay-1];
+  // Apply reward
+  st.coins[girl]=(st.coins[girl]||0)+reward.coins;
+  st[girl].xp=(st[girl].xp||0)+reward.xp;
+  st[girl].totalXp=(st[girl].totalXp||0)+reward.xp;
+  st.dailyLogin[girl].lastDate=today;
+  st.dailyLogin[girl].day=nextDay;
+  if(!st.dailyLogin[girl].history)st.dailyLogin[girl].history=[];
+  st.dailyLogin[girl].history.push({date:today,day:nextDay,coins:reward.coins});
+  // Add notification
+  addNotification(girl,'reward',reward.emoji+' Recompensa dia '+nextDay+': +'+reward.coins+' monedas!');
+  await cSave();
+  g('dailyRewardOverlay').classList.remove('show');
+  confetti();confetti();
+  toast(reward.emoji+' +'+reward.coins+' monedas por entrar hoy!');
+  pendingDailyGirl=null;
+  if(mode===girl)renderKT();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// STREAK SYSTEM
+// Tracks consecutive days completing ALL missions
+// ═══════════════════════════════════════════════════════════════
+function updateStreak(girl){
+  checkAndNormalize();
+  var today=todayStr();
+  var sk=st.streak[girl];
+  if(sk.lastDate===today)return; // already updated today
+  // Check if missions are fully complete
+  var m=st.missions[girl];
+  if(!m||m.date!==today)return;
+  var allDone=m.tasks.length>0&&m.tasks.every(function(tid){return m.completed.indexOf(tid)>=0;});
+  if(!allDone)return;
+  var yesterday=yesterdayStr();
+  if(sk.lastDate===yesterday){
+    sk.count++;
+  }else if(sk.lastDate!==today){
+    sk.count=1;
+  }
+  sk.lastDate=today;
+  if(!sk.history)sk.history=[];
+  sk.history.push(today);
+  if(sk.history.length>30)sk.history=sk.history.slice(-30);
+  // Streak milestone notifications
+  if(sk.count===3)addNotification(girl,'streak','🔥 3 dias seguidos! Eres increible!');
+  if(sk.count===7)addNotification(girl,'streak','👑 7 dias seguidos! Eres una leyenda!');
+  if(sk.count===30)addNotification(girl,'streak','💎 30 dias seguidos! CAMPEONA TOTAL!');
+}
+
+function updateStreakDisplay(girl){
+  // Called on tab open to show current streak
+}
+
+function getStreakClass(count){
+  if(count===0)return 'streak-hero-0';
+  if(count>=5)return 'streak-hero-hot';
+  return 'streak-hero-active';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DAILY MISSIONS SYSTEM
+// Auto-generates 3-5 missions per day from available tasks
+// ═══════════════════════════════════════════════════════════════
+function checkAndGenerateMissions(girl){
+  checkAndNormalize();
+  var today=todayStr();
+  var m=st.missions[girl];
+  if(m.date===today&&m.tasks.length>0)return; // already generated today
+  generateMissions(girl, today);
+}
+
+function generateMissions(girl, date){
+  var chores=cfg[girl].chores;
+  if(!chores||chores.length===0)return;
+  // Shuffle and pick 3-5 based on chore count
+  var count=Math.min(Math.max(3,Math.floor(chores.length*0.75)),5);
+  var shuffled=chores.slice().sort(function(){return Math.random()-.5;});
+  var picked=shuffled.slice(0,count);
+  st.missions[girl]={
+    date:date,
+    tasks:picked.map(function(c){return c.id;}),
+    completed:[],
+    bonusClaimed:false
+  };
+  addNotification(girl,'mission','🎯 Tus misiones de hoy estan listas!');
+}
+
+function updateMissionProgress(girl, choreId){
+  checkAndNormalize();
+  var today=todayStr();
+  var m=st.missions[girl];
+  if(!m||m.date!==today)return;
+  if(m.tasks.indexOf(choreId)<0)return; // not a mission task
+  if(m.completed.indexOf(choreId)>=0)return; // already done
+  m.completed.push(choreId);
+  // Check if all missions complete
+  var allDone=m.tasks.every(function(tid){return m.completed.indexOf(tid)>=0;});
+  if(allDone&&!m.bonusClaimed){
+    m.bonusClaimed=true;
+    // Bonus reward for completing all missions
+    var bonusCoins=15;var bonusXp=30;
+    st.coins[girl]=(st.coins[girl]||0)+bonusCoins;
+    st[girl].xp=(st[girl].xp||0)+bonusXp;
+    st[girl].totalXp=(st[girl].totalXp||0)+bonusXp;
+    updateStreak(girl);
+    addNotification(girl,'mission','🎉 Todas las misiones completadas! +'+bonusCoins+' monedas bonus!');
+    setTimeout(function(){
+      confetti();confetti();confetti();
+      toast('🎉 TODAS LAS MISIONES! +'+bonusCoins+' monedas bonus!');
+      var dot=g('missionsDot');if(dot)dot.classList.remove('show');
+    },500);
+  }
+  // Update missions dot
+  updateMissionsDot(girl);
+}
+
+function updateMissionsDot(girl){
+  if(mode!==girl)return;
+  var today=todayStr();
+  var m=st.missions[girl];
+  var dot=g('missionsDot');
+  if(!dot)return;
+  var allDone=m&&m.date===today&&m.tasks.length>0&&m.tasks.every(function(t){return m.completed.indexOf(t)>=0;});
+  if(allDone){dot.classList.remove('show');}
+  else{dot.classList.add('show');}
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER MISSIONS (kid view)
+// ═══════════════════════════════════════════════════════════════
+function renderMissions(){
+  var girl=mode;
+  checkAndNormalize();
+  var today=todayStr();
+  var m=st.missions[girl];
+  var sk=st.streak[girl];
+  var coins=st.coins[girl]||0;
+
+  // Streak section
+  var skCount=sk?sk.count:0;
+  var skClass=getStreakClass(skCount);
+  var skMsg=skCount>=10?'Leyenda imparable! 🏆':skCount>=5?'En llamas! No te detengas! 🔥':skCount>=2?'Vas muy bien! Sigue! 💪':skCount===1?'Primer dia! Mañana sigue! ⭐':'Completa todas las misiones de hoy para empezar!';
+  // Last 7 days heat bar
+  var history=(sk&&sk.history)||[];
+  var last7=[];
+  for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);last7.push(d.toISOString().split('T')[0]);}
+
+  var streakHtml='<div class="streak-hero '+skClass+'" style="margin-bottom:14px">'
+    +'<span class="streak-flame">'+(skCount>0?'🔥':'💤')+'</span>'
+    +'<div style="flex:1">'
+      +'<div style="display:flex;align-items:baseline;gap:6px">'
+        +'<div class="streak-num">'+skCount+'</div>'
+        +'<div class="streak-unit">dias seguidos</div>'
+      +'</div>'
+      +'<div class="streak-msg" style="color:'+(skCount>0?'#7A4A00':'var(--softer)')+'">'+skMsg+'</div>'
+      +'<div class="streak-heat-bar" style="margin-top:8px">'+last7.map(function(d){
+        var done=history.indexOf(d)>=0;
+        var isToday=d===today;
+        return '<div class="streak-day'+(done?' done':'')+(isToday?' today':'')+'"></div>';
+      }).join('')+'</div>'
+    +'</div>'
+    +'<div style="text-align:right"><div style="font-family:Fredoka One,cursive;font-size:1rem;color:var(--gold)">🪙'+coins+'</div><div style="font-size:.65rem;color:var(--soft);font-weight:800">monedas</div></div>'
+  +'</div>';
+
+  // Missions section
+  if(!m||m.date!==today||m.tasks.length===0){
+    g('kMissions').innerHTML=streakHtml+'<div class="missions-card"><div class="missions-header"><div class="missions-title">🎯 Misiones de Hoy</div></div><div style="text-align:center;padding:20px;color:var(--soft);font-size:.88rem;font-weight:700">No hay misiones hoy.<br>Papa necesita agregar tareas primero.</div></div>';
+    return;
+  }
+
+  var completedAll=m.tasks.every(function(t){return m.completed.indexOf(t)>=0;});
+  var doneCount=m.completed.length;
+  var totalCount=m.tasks.length;
+
+  var missionsItems=m.tasks.map(function(tid){
+    var chore=null;cfg[girl].chores.forEach(function(ch){if(ch.id===tid)chore=ch;});
+    if(!chore)return '';
+    var done=m.completed.indexOf(tid)>=0;
+    var pts=cPts(chore);
+    return '<div class="mission-item'+(done?' done':'')+'"'+(done?'':(' onclick="completeMissionTask(\''+tid+'\')"'))+'>' 
+      +'<span class="mission-emoji">'+chore.emoji+'</span>'
+      +'<div class="mission-info"><div class="mission-name">'+chore.name+'</div><div class="mission-reward">+$'+parseFloat(chore.reward||0).toFixed(2)+' · 🪙+'+pts+' · ⭐+'+pts*2+'</div></div>'
+      +'<div class="mission-check">'+(done?'✅':'')+'</div>'
+    +'</div>';
+  }).join('');
+
+  var bonusSection=completedAll
+    ?'<div class="missions-all-done"><span style="font-size:2.5rem">🎉</span><div style="font-family:Fredoka One,cursive;font-size:1.1rem;color:var(--green);margin-top:6px">Todas las misiones completadas!</div>'+(m.bonusClaimed?'<div style="font-size:.8rem;color:var(--soft);font-weight:700;margin-top:4px">Bonus ya reclamado ✅</div>':'')+'</div>'
+    :'<div class="missions-bonus"><span style="font-size:1.4rem">🎁</span><div class="missions-bonus-text">Completa TODAS para ganar +15 monedas bonus! ('+doneCount+'/'+totalCount+')</div></div>';
+
+  g('kMissions').innerHTML=streakHtml
+    +'<div class="missions-card">'
+      +'<div class="missions-header">'
+        +'<div class="missions-title">🎯 Misiones de Hoy</div>'
+        +'<div class="missions-meta">'+doneCount+'/'+totalCount+' completadas</div>'
+      +'</div>'
+      +missionsItems
+      +bonusSection
+    +'</div>';
+  updateMissionsDot(girl);
+}
+
+async function completeMissionTask(choreId){
+  // This completes both the mission task AND the regular chore
+  if(!mode||mode==='dad')return;
+  if(st[mode].done.indexOf(choreId)>=0)return; // already done via tasks tab
+  // Trigger the normal kComplete flow
+  await kComplete(choreId);
+  // Re-render missions view
+  setTimeout(renderMissions, 200);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// REWARD STORE SYSTEM
+// ═══════════════════════════════════════════════════════════════
+var pendingRedeem=null;
+
+function renderStore(){
+  var girl=mode;
+  checkAndNormalize();
+  var coins=st.coins[girl]||0;
+  var items=cfg.store||[];
+  var pending=st.redeemRequests.filter(function(r){return r.girl===girl&&!r.approved;});
+
+  var storeHtml='<div class="store-header">'
+    +'<div style="font-family:Fredoka One,cursive;font-size:1.2rem;color:var(--dpink)">🛒 Tienda de Premios</div>'
+    +'<div class="store-balance">🪙 '+coins+' monedas</div>'
+  +'</div>';
+
+  if(pending.length>0){
+    storeHtml+='<div style="background:linear-gradient(135deg,rgba(255,209,102,.15),rgba(255,179,71,.1));border:2px solid rgba(255,209,102,.4);border-radius:16px;padding:12px 14px;margin-bottom:14px">'
+      +'<div style="font-family:Fredoka One,cursive;font-size:.9rem;color:#7A4A00;margin-bottom:8px">⏳ Esperando aprobacion de Papa</div>'
+      +pending.map(function(r){return '<div style="font-size:.82rem;color:var(--soft);font-weight:700">'+r.emoji+' '+r.name+'</div>';}).join('')
+    +'</div>';
+  }
+
+  storeHtml+='<div class="store-grid">'
+    +items.map(function(item){
+      var canAfford=coins>=item.cost;
+      var cls='store-item'+(canAfford?' affordable':' cant-afford');
+      var fnCall=canAfford?('showRedeem(\''+item.id+'\')'):('showCantAfford()');
+      return '<div class="'+cls+'" onclick="'+fnCall+'">'
+        +'<span class="store-emoji">'+item.emoji+'</span>'
+        +'<div class="store-name">'+item.name+'</div>'
+        +'<div class="store-cost">🪙 '+item.cost+'</div>'
+      +'</div>';
+    }).join('')
+  +'</div>';
+
+  g('kStore').innerHTML=storeHtml;
+}
+
+function showRedeem(itemId){
+  var item=null;(cfg.store||[]).forEach(function(i){if(i.id===itemId)item=i;});
+  if(!item)return;
+  pendingRedeem=item;
+  g('redeemEmoji').textContent=item.emoji;
+  g('redeemName').textContent=item.name;
+  g('redeemCost').textContent='-🪙 '+item.cost+' monedas';
+  g('redeemPopup').classList.add('show');
+}
+
+function showCantAfford(){toast('Necesitas mas monedas! Completa mas tareas. 💪');}
+function closeRedeem(){g('redeemPopup').classList.remove('show');pendingRedeem=null;}
+
+async function confirmRedeem(){
+  if(!pendingRedeem||!mode||mode==='dad')return;
+  var girl=mode;
+  var item=pendingRedeem;
+  var coins=st.coins[girl]||0;
+  if(coins<item.cost){toast('No tienes suficientes monedas!');closeRedeem();return;}
+  st.coins[girl]-=item.cost;
+  // Add to redeem requests (parent must approve)
+  st.redeemRequests.push({
+    id:'r'+Date.now(),girl:girl,itemId:item.id,
+    emoji:item.emoji,name:item.name,cost:item.cost,
+    date:todayStr(),approved:false,ts:Date.now()
+  });
+  // Notify parent
+  addNotification('dad','redeem',cfg[girl].name+' quiere canjear: '+item.emoji+' '+item.name);
+  await cSave();
+  closeRedeem();
+  confetti();
+  toast(item.emoji+' Solicitud enviada! Papa tiene que aprobarla. 🎉');
+  renderStore();
+  updateNotifBadge();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// NOTIFICATIONS SYSTEM
+// ═══════════════════════════════════════════════════════════════
+function addNotification(girl, type, msg){
+  checkAndNormalize();
+  var icons={reward:'🎁',mission:'🎯',streak:'🔥',redeem:'🛒',level:'🌟',achievement:'🏅'};
+  st.notifications.unshift({
+    id:'n'+Date.now(),girl:girl,type:type,
+    msg:msg,icon:icons[type]||'🔔',
+    ts:Date.now(),read:false
+  });
+  if(st.notifications.length>50)st.notifications=st.notifications.slice(0,50);
+  updateNotifBadge();
+}
+
+function updateNotifBadge(){
+  checkAndNormalize();
+  var unread=st.notifications.filter(function(n){return !n.read;}).length;
+  var badge=g('notifBadge');
+  if(badge)badge.classList[unread>0?'add':'remove']('show');
+}
+
+function toggleNotifications(){
+  var panel=g('notifPanel');
+  if(!panel)return;
+  if(panel.classList.contains('show')){closeNotifications();}
+  else{renderNotifications();panel.classList.add('show');}
+}
+
+function closeNotifications(){
+  var panel=g('notifPanel');if(panel)panel.classList.remove('show');
+  // Mark all as read
+  checkAndNormalize();
+  st.notifications.forEach(function(n){n.read=true;});
+  updateNotifBadge();
+  cSave();
+}
+
+function renderNotifications(){
+  checkAndNormalize();
+  var list=g('notifList');if(!list)return;
+  var relevant=st.notifications.filter(function(n){
+    return mode==='dad'||n.girl===mode||n.girl==='dad';
+  }).slice(0,15);
+  if(relevant.length===0){list.innerHTML='<div class="notif-empty">Sin notificaciones nuevas</div>';return;}
+  list.innerHTML=relevant.map(function(n){
+    var timeAgo=formatTimeAgo(n.ts);
+    return '<div class="notif-item'+(n.read?'':' style="background:rgba(255,107,181,.04)"')+'"><span class="notif-icon">'+n.icon+'</span><div><div class="notif-text">'+n.msg+'</div><div class="notif-time">'+timeAgo+'</div></div></div>';
+  }).join('');
+}
+
+function formatTimeAgo(ts){
+  var diff=Math.floor((Date.now()-ts)/1000);
+  if(diff<60)return 'Hace un momento';
+  if(diff<3600)return 'Hace '+Math.floor(diff/60)+' min';
+  if(diff<86400)return 'Hace '+Math.floor(diff/3600)+'h';
+  return 'Hace '+Math.floor(diff/86400)+' dias';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FLOATING COIN/XP ANIMATION
+// ═══════════════════════════════════════════════════════════════
+function showFloatingReward(coins, xp){
+  var colors=['coins','xp'];
+  var msgs=['+🪙'+coins, '+⭐'+xp+'XP'];
+  msgs.forEach(function(msg, i){
+    var el=document.createElement('div');
+    el.className=i===0?'coins-float':'xp-float';
+    el.textContent=msg;
+    el.style.cssText='left:'+(30+Math.random()*40)+'vw;top:40vh;animation-delay:'+i*0.15+'s';
+    document.body.appendChild(el);
+    setTimeout(function(){el.remove();},1200);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PARENT DASHBOARD
+// ═══════════════════════════════════════════════════════════════
+function renderDashboard(){
+  checkAndNormalize();
+  var today=todayStr();
+  var girls=['sofia','valentina'];
+
+  // Summary cards
+  var totalTasksToday=0;
+  var totalCoins=0;
+  var totalStreak=0;
+  girls.forEach(function(girl){
+    totalTasksToday+=st[girl].done.length;
+    totalCoins+=st.coins[girl]||0;
+    totalStreak+=st.streak[girl]?st.streak[girl].count:0;
+  });
+  var pendingRedeems=st.redeemRequests.filter(function(r){return !r.approved;});
+
+  // Weekly activity (last 7 days tasks completed per girl combined)
+  var weekDays=[];
+  for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);weekDays.push(d.toISOString().split('T')[0]);}
+  var weekLabels=['L','M','M','J','V','S','D'];
+  // We estimate from streak history
+  var maxAct=Math.max(cfg.sofia.chores.length,cfg.valentina.chores.length,1);
+
+  var dashHtml=
+    // Pending redeems alert
+    (pendingRedeems.length>0?
+      '<div class="pending-redeems">'
+        +'<div style="font-family:Fredoka One,cursive;font-size:1rem;color:#1A6A2A;margin-bottom:10px">🛒 Canjes Pendientes ('+pendingRedeems.length+')</div>'
+        +pendingRedeems.map(function(r){
+          return '<div class="pending-redeem-item">'
+            +'<span class="prd-emoji">'+r.emoji+'</span>'
+            +'<div class="prd-info">'+r.name+'<span>Para '+cfg[r.girl].name+' · 🪙'+r.cost+'</span></div>'
+            +'<button class="btn-approve" onclick="approveRedeem(\''+r.id+'\')">Aprobar ✓</button>'
+          +'</div>';
+        }).join('')
+      +'</div>':'')
+
+    // Stats grid
+    +'<div class="dashboard-grid">'
+      +'<div class="dash-card"><div class="dash-card-title">Tareas Hoy</div><div class="dash-card-val">'+totalTasksToday+'</div><div class="dash-card-sub">entre las dos</div></div>'
+      +'<div class="dash-card dash-card-gold"><div class="dash-card-title">Monedas Total</div><div class="dash-card-val">🪙'+totalCoins+'</div><div class="dash-card-sub">acumuladas</div></div>'
+      +'<div class="dash-card dash-card-green"><div class="dash-card-title">Racha Promedio</div><div class="dash-card-val">🔥'+Math.max(st.streak.sofia.count,st.streak.valentina.count)+'</div><div class="dash-card-sub">mejor racha actual</div></div>'
+      +'<div class="dash-card dash-card-purple"><div class="dash-card-title">Canjes Pendientes</div><div class="dash-card-val">'+pendingRedeems.length+'</div><div class="dash-card-sub">esperan aprobacion</div></div>'
+    +'</div>'
+
+    // Per-child details
+    +girls.map(function(girl){
+      var gs=st[girl];var gc=cfg[girl];
+      var missionData=st.missions[girl];
+      var missionsToday=missionData&&missionData.date===today?missionData.completed.length+'/'+missionData.tasks.length:'Sin generar';
+      var sk=st.streak[girl];
+      return '<div style="background:linear-gradient(135deg,'+(girl==='sofia'?'#FFE0EF,#FFF0F8':'#D6FFE8,#F0FBFF')+';border:2.5px solid rgba('+(girl==='sofia'?'255,107,181':'107,203,119')+',.3);border-radius:20px;padding:14px 16px;margin-bottom:12px">'
+        +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'
+          +'<span style="font-size:2rem">'+gc.avatar+'</span>'
+          +'<div><div style="font-family:Fredoka One,cursive;font-size:1.1rem;color:'+(girl==='sofia'?'var(--dpink)':'#1A6A2A')+'">'+gc.name+'</div>'
+          +'<div style="font-size:.72rem;color:var(--soft);font-weight:700">'+getNivel(gs.totalXp||0).emoji+' '+getNivel(gs.totalXp||0).name+'</div></div>'
+          +'<div style="margin-left:auto;text-align:right">'
+            +'<div style="font-family:Fredoka One,cursive;font-size:1.1rem;color:var(--gold)">🪙'+(st.coins[girl]||0)+'</div>'
+            +'<div style="font-size:.7rem;color:var(--soft);font-weight:700">monedas</div>'
+          +'</div>'
+        +'</div>'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">'
+          +'<div style="background:white;border-radius:10px;padding:7px 6px;text-align:center"><div style="font-family:Fredoka One,cursive;font-size:1.2rem;color:var(--dpink)">'+gs.done.length+'</div><div style="font-size:.6rem;color:var(--soft);font-weight:800">tareas hoy</div></div>'
+          +'<div style="background:white;border-radius:10px;padding:7px 6px;text-align:center"><div style="font-family:Fredoka One,cursive;font-size:1.2rem;color:#B5780A">🔥'+(sk?sk.count:0)+'</div><div style="font-size:.6rem;color:var(--soft);font-weight:800">racha</div></div>'
+          +'<div style="background:white;border-radius:10px;padding:7px 6px;text-align:center"><div style="font-family:Fredoka One,cursive;font-size:1.2rem;color:var(--dpurple)">'+missionsToday+'</div><div style="font-size:.6rem;color:var(--soft);font-weight:800">misiones</div></div>'
+        +'</div>'
+      +'</div>';
+    }).join('');
+
+  g('dDash').innerHTML=dashHtml;
+}
+
+async function approveRedeem(reqId){
+  checkAndNormalize();
+  var req=null;
+  st.redeemRequests.forEach(function(r){if(r.id===reqId)req=r;});
+  if(!req)return;
+  req.approved=true;
+  req.approvedDate=todayStr();
+  addNotification(req.girl,'redeem','🎉 Papa aprobo: '+req.emoji+' '+req.name+'!');
+  await cSave();
+  confetti();
+  toast('Canje aprobado para '+cfg[req.girl].name+'! 🎉');
+  renderDashboard();
+  updateNotifBadge();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// STORE EDITOR (dad side — adds to Config)
+// ═══════════════════════════════════════════════════════════════
+function renderStoreEditor(){
+  checkAndNormalize();
+  var items=cfg.store||[];
+  return '<div class="adm-title">🛒 Tienda de Premios</div>'
+    +'<p style="font-size:.8rem;color:var(--soft);margin-bottom:10px">Los premios que las ninas pueden canjear con sus monedas.</p>'
+    +'<div class="adm-card">'
+    +items.map(function(item,i){
+      return '<div class="adm-field">'
+        +'<input class="adm-input adm-emoji" value="'+item.emoji+'" onchange="cfg.store['+i+'].emoji=this.value" style="max-width:50px">'
+        +'<input class="adm-input" value="'+item.name+'" onchange="cfg.store['+i+'].name=this.value">'
+        +'<input class="adm-input adm-sm" type="number" min="1" value="'+item.cost+'" onchange="cfg.store['+i+'].cost=parseInt(this.value)||1">'
+        +'<span style="font-size:.7rem;color:var(--soft);font-weight:800">monedas</span>'
+        +'<button class="btn-del-c" onclick="delStoreItem('+i+')">🗑️</button>'
+      +'</div>';
+    }).join('')
+    +'<div style="padding:7px 16px"><button class="btn-add-c" onclick="addStoreItem()">+ Agregar premio</button></div>'
+    +'</div>';
+}
+
+function addStoreItem(){
+  checkAndNormalize();
+  if(!cfg.store)cfg.store=[];
+  cfg.store.push({id:'st'+Date.now(),emoji:'🎁',name:'Premio especial',cost:20,type:'special'});
+  var mc=g('storeEditorContainer');if(mc)mc.innerHTML=renderStoreEditor();
+}
+
+function delStoreItem(idx){
+  checkAndNormalize();
+  if(!confirm('Eliminar este premio?'))return;
+  cfg.store.splice(idx,1);
+  var mc=g('storeEditorContainer');if(mc)mc.innerHTML=renderStoreEditor();
 }
 
 // ── SMART STARTUP ──────────────────────────────────
