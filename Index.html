@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🦄 Tareas Magicas</title>
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+<!-- Firebase REST API — no SDK needed -->
 
 <style>
 /* ════════════════════════════════════════════════════════
@@ -1246,9 +1244,9 @@ function getStoredCode(){return localStorage.getItem(FC_KEY)||'';}
 
 function initFirebase(url){
   try{
-    if(firebase.apps.length){firebase.app().delete();}
-    firebase.initializeApp({databaseURL:url});
-    db=firebase.database();
+    // REST API only — no SDK needed
+    FB_BASE=url.replace(/\/+$/,'');
+    db=true; // signals Firebase is ready
     return true;
   }catch(e){console.error('Firebase init error',e);return false;}
 }
